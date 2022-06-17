@@ -1,23 +1,40 @@
-// Display/UI
+{
+    "jshint.options": {
+      "esversion": 6
+    }
+  }
 
-import { createBoard } from "./minesweeper.js";
+var board = [];
+var rows = 8;
+var columns = 8;
 
-const BOARD_SIZE = 10;
-const NUMBER_OF_MINES = 2;
+var minesCount = 5;
+var minesLocation = []; //"2-2", "3-4", "2-1"
 
-const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
-const boardElement = document.querySelector('.board');
+var tilesClicked = 0; //goal to click all tiles execpt the ones containing mines
+var flagEnabled = false;
 
-board.forEach(row => {
-    row.forEach(tile => {
-        boardElement.append(tile.element);
-    });
-});
-boardElement.style.setProperty("--size", BOARD_SIZE);
+var gameOver = false;
 
-// 1. Populate a board with tiles/mines
-// 2. Left click on tiles
-    // a. Reveal tiles
-// 3. Right click on tiles
-    // a. Mark tiles
-// 4. Check for win/lose
+window.onload = function() {
+    startGame();
+};
+
+function startGame() {
+    document.getElementById("mines-count").innerText = minesCount;
+
+    //populate our board
+    for (let r = 0; r < rows, r++) {
+        let row = [];
+        for (let c = 0; c < columns; c++) {
+            //<div id="0-0"></div>
+            let tile = document.createElement("div");
+            tile.id = r.toString() + "-" + c.toString();
+            document.getElementById("board").append(tile);
+            row.push(tile);
+        }
+        board.push(row);
+    }
+
+    console.log(board);
+}
